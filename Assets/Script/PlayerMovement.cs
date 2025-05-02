@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
         }//Jump
 
-    }// Update
 
+    }// Update
 
     private void OnCollisionEnter2D(Collision2D other)
     {
