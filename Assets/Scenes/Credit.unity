@@ -2654,7 +2654,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: text
+  m_Text: 'Coding
+
+    UI Designer
+
+    Assets & Video'
 --- !u!222 &1685430620
 CanvasRenderer:
   m_ObjectHideFlags: 0
