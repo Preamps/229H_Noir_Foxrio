@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
+using UnityEditor.Overlays;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -7,16 +9,27 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 200f;
     public bool isJumping = false;
+    
     public int hp = 100;
     public int coin = 0;
 
     private float moveInput;
     private Rigidbody2D rb2d;
+    private string savePath;
+
+    [System.Serializable]
+    private class PlayerStats
+    {
+        public int hp;
+        public int coin;
+    }
 
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        savePath = Application.persistentDataPath + "/playerdata.json";
+
     }// Start
 
 
@@ -31,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
             rb2d.AddForce(new Vector2(rb2d.linearVelocity.x, jumpForce));
 
         }//Jump
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SavePlayerData();
+        }
     }// Update
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -58,4 +76,17 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
         }
     }//OnCollisionExit2D
+
+    private void SavePlayerData()
+    {
+        PlayerStats stats = new PlayerStats
+        {
+            hp = this.hp,
+            coin = this.coin
+        };
+
+        string json = JsonUtility.ToJson(stats, true);
+        File.WriteAllText(savePath, json);
+    }
+
 }//PlayerMovement
