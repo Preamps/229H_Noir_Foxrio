@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 200f;
     public bool isJumping = false;
+    public int hp = 100;
 
     private float moveInput;
     private Rigidbody2D rb2d;
@@ -16,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     }// Start
 
-    
+
     void Update()
     {
         moveInput = Input.GetAxis("Horizontal");
@@ -40,6 +42,17 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumping = false;
         }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            hp -= 10;
+            Debug.Log("โดนโจมตี! พลังชีวิตเหลือ: " + hp);
+            if (hp <= 0)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+        }
+
     }//OnCollisionEnter2D
 
     private void OnCollisionExit2D(Collision2D other)
