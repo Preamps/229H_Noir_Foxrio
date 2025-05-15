@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping = false;
     
     public int hp = 100;
-    public int coin = 0;
 
     private float moveInput;
     private Rigidbody2D rb2d;
@@ -82,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
         PlayerStats stats = new PlayerStats
         {
             hp = this.hp,
-            coin = this.coin
         };
 
         string json = JsonUtility.ToJson(stats, true);
